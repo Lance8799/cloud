@@ -1,0 +1,96 @@
+server:
+  # 服务端口
+  port: 10010
+  compression:
+    # 开启数据压缩
+    enabled: true
+    # 指定数据压缩类型
+    mime-types: text/html,text/xml,text/javascript,text/css,text/plain,application/javascript
+## Spring ##
+spring:
+  application:
+    name: zuul
+  # Rabbit MQ
+  rabbitmq:
+    username: guest
+    password: guest
+  # Zipkin
+  zipkin:
+    # Zipkin rabbitmq
+    rabbitmq:
+      queue: zipkin
+    # zipkin地址，默认为：http://localhost:9411。使用MQ方式时不需要
+#    base-url: http://localhost:19411
+  # Sleuth
+  sleuth:
+    sampler:
+      # 抽样率，1为100%即每个请求，默认为0.1。Http方式去发送采集数据, 对性能有很大的影响
+      percentage: 1
+## Eureka ##
+eureka:
+  instance:
+    # 客户端在注册时服务的 Instance ID
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+    prefer-ip-address: true
+    # 自定义实例跳转链接
+    status-page-url: http://${spring.cloud.client.ipAddress}:${server.port}/swagger-ui.html
+  client:
+    service-url:
+      # 默认注册中心地址
+      defaultZone: http://lance:123@localhost:10000/eureka
+## Zuul ##
+zuul:
+  # 对所有接口前增加前缀
+#  prefix: /cloud
+  # 忽略所有没有配置的服务
+  ignored-services: '*'
+  # 忽略路径规则，以下表示所有接口前缀包含ignore的也会忽略
+#  ignored-patterns: /**/ignore/**
+  # 忽略请求头，对request和response
+#  ignored-headers:
+  # 关闭忽略Spring Security的安全认证请求头
+#  ignore-security-headers: false
+  # 忽略指定请求头，可设置为空不忽略，默认为"Cookie", "Set-Cookie", "Authorization"。在指定服务中设置会覆盖全局
+#  sensitive-headers:
+  # 网关ribbon的隔离策略，默认为SEMAPHORE
+#  ribbon-isolation-strategy: thread
+#  thread-pool:
+    # 指定隔离策略为thread时，可分开使用不同线程池，默认为同一个
+#    use-separate-thread-pools: true
+    # 线程池前缀
+#    thread-pool-key-prefix: zpool
+  # 通过配置方式来禁用过滤器，格式为"zuul.过滤器的类名.过滤器类型.disable=true"
+  SendErrorFilter:
+    error:
+      disable: true
+  AddResponseHeaderFilter:
+    post:
+      disable: true
+  # 定义服务的路由，key默认会设置为serviceId，可设置多个key对应一个服务
+  routes:
+    sample:
+      path: /sample/**
+      service-id: sample
+    substitute:
+      path: /substitute/**
+      # 路由后取消全局前缀，暂不明
+      strip-prefix: false
+    # 本地跳转
+    local:
+      path: /local/**
+      url: forward:/local
+    auth:
+      path: /auth/**
+      url: forward:/auth/token
+## 自定义 ##
+swagger:
+  group:
+    auth:
+      ant-paths: /auth/**
+      title: Auth Api
+    local:
+      ant-paths: /local/**
+      title: Local Api
+# 白名单
+white:
+  apis: /substitute/product/
