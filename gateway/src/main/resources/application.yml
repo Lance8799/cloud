@@ -1,0 +1,66 @@
+server:
+  port: 10010
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' # 暴露所有端点
+
+## Eureka ##
+#eureka:
+#  instance:
+#    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port} # 客户端在注册时服务的 Instance ID，springboot 1.5使用spring.cloud.client.ipAddress
+#    prefer-ip-address: true # 以IP地址注册到服务中心，相互注册使用IP地址
+#  client:
+#    service-url: # 默认注册中心地址
+#      defaultZone: http://lance:123@localhost:10000/eureka
+
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # 启用基于服务发现的路由定位，
+          lower-case-service-id: true
+      routes:
+      - id: local_route
+        uri: forward:/local
+        predicates:
+        - Path=/local/**
+      - id: auth_route
+        uri: forward:/auth
+        predicates:
+        - Path=/auth/**
+      # sample-service
+      - id: sample_service_route
+        uri: lb://sample-service
+        predicates: # 对应服务中的请求路径为：http://service:port/pathValue/**
+        - Path=/sample/**
+        filters: # 转发时去除前缀，数字代表前几个。例如为2：/pathValue/bar/foo会转为http://service:port/foo
+        - StripPrefix=1
+        - name: Hystrix # 熔断
+          args:
+            name: fallbackcmd
+            fallbackUri: forward:/service/fallback
+      # substitute-service
+      - id: substitute_service_route
+        uri: lb://substitute-service
+        predicates:
+        - Path=/substitute/**
+        filters:
+        - StripPrefix=1
+#        - SwaggerHeaderFilter
+#        - name: RequestRateLimiter # 基于redis限流
+#          args:
+#            key-resolver: '#{@uriKeyResolver}'
+#            redis-rate-limiter.replenishRate: 10 # 令牌桶每秒填充平均速率
+#            redis-rate-limiter.burstCapacity: 20 # 令牌桶总容量
+
+logging:
+  level:
+    org.springframework.cloud.gateway: debug
+    org.springframework.http.server.reactive: debug
+    org.springframework.web.reactive: debug
+

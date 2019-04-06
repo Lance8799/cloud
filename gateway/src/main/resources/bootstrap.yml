@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: gateway-service
+  # Nacos Spring Cloud 中，dataId 的完整格式，${prefix}-${spring.profile.active}.${file-extension}
+  # prefix 默认为 spring.application.name 的值，也可以通过配置项 spring.cloud.nacos.config.prefix来配置
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        refreshable-dataids:
+      discovery:
+        server-addr: localhost:8848
