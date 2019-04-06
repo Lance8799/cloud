@@ -1,0 +1,30 @@
+server:
+  port: 16379 #${range.port:10200}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+#eureka:
+#  instance:
+#    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+#    prefer-ip-address: true
+#    status-page-url: http://${spring.cloud.client.ip-address}:${server.port}/swagger-ui.html
+#    metadata-map:
+#      mine: substitute-service
+#  client:
+#    service-url:
+#      defaultZone: http://lance:123@localhost:10000/eureka
+
+## CacheSupport ##
+#caching:
+#  name: cacheSupport # 注解动态方式设置缓存名和ttl
+#  redis: # 配置文件方式设置缓存名和ttl
+#    support: 100 # 名字要对应注解中的cacheName
+#    product: 200
+
