@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: substitute-service
+  ## Nacos ##
+#  cloud:
+#    nacos:
+#      config:
+#        server-addr: localhost:8848
+#      discovery:
+#        server-addr: localhost:8848
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+    status-page-url: http://${spring.cloud.client.ip-address}:${server.port}/swagger-ui.html
+    metadata-map:
+      mine: substitute-service
+  client:
+    service-url:
+      defaultZone: http://lance:123@localhost:10000/eureka

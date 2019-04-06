@@ -18,7 +18,6 @@ public class JsonUtils {
     static {
         // 序列化设置
         mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
-        mapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false);
         // 根据字母排序，等效但不及@JsonPropertyOrder(alphabetic = true, value = "{c, b}")
         mapper.configure(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY, true);
     }

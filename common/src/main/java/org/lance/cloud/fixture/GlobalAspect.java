@@ -7,8 +7,6 @@ import org.lance.cloud.domain.transmit.DataTransmit;
 import org.lance.cloud.utils.RsaUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
@@ -20,7 +18,6 @@ import java.util.Map;
  */
 @Aspect
 @Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
 public class GlobalAspect {
 
     private static Logger logger = LoggerFactory.getLogger(GlobalAspect.class);
@@ -81,11 +78,11 @@ public class GlobalAspect {
 
     /**
      * 调用方法异常处理
-     * @param joinPoint
+     * @param
      */
-    @AfterThrowing(value = "request()")
-    public void afterThrowing(JoinPoint joinPoint) {
-        System.err.println("[Aspect1] afterThrowing advise");
+    @AfterThrowing(value = "request()", throwing = "ex")
+    public void afterThrowing(JoinPoint point, Throwable ex) {
+        logger.error("全局方法异常: " + point.getSignature().getName(), ex.getCause());
     }
 
 

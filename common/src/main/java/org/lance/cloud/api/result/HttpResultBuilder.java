@@ -21,6 +21,10 @@ public class HttpResultBuilder {
         return new HttpResult<>(code, message, null);
     }
 
+    public static <T> HttpResult<T> fail(String message){
+        return new HttpResult<>(500, message, null);
+    }
+
     public static <T> HttpResult<T> fail(ErrorType type){
         return HttpResultBuilder.fail(type.getCode(), type.getDescription());
     }

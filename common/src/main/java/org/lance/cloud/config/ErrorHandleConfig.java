@@ -3,14 +3,16 @@ package org.lance.cloud.config;
 import org.lance.cloud.exception.ApplicationException;
 import org.lance.cloud.exception.enums.ErrorType;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.autoconfigure.web.BasicErrorController;
-import org.springframework.boot.autoconfigure.web.ErrorAttributes;
-import org.springframework.boot.autoconfigure.web.ErrorViewResolver;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
+import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedHashMap;
@@ -62,9 +64,13 @@ public class ErrorHandleConfig {
             Integer status = getAttribute(requestAttributes, "javax.servlet.error.status_code");
             String path = getAttribute(requestAttributes, "javax.servlet.error.request_uri");
 
-            Throwable error = errorAttributes.getError(requestAttributes);
-            ErrorType errorType = ErrorType.SYSTEM;
+            // springboot 2.0
+            WebRequest webRequest = new ServletWebRequest(request);
+            Throwable error = errorAttributes.getError(webRequest);
+            // springboot 1.5
+//            Throwable error = errorAttributes.getError(requestAttributes);
 
+            ErrorType errorType = ErrorType.SYSTEM;
             if (error instanceof ApplicationException) {
                 errorType = ((ApplicationException) error).getErrorType();
             }
@@ -72,7 +78,7 @@ public class ErrorHandleConfig {
             attr.put("code", errorType.getCode());
             attr.put("description", errorType.getDescription());
             attr.put("status", status);
-            attr.put("message", error.getMessage());
+            attr.put("message", error != null ? error.getMessage() : "");
             attr.put("path", path);
             attr.put("isRetry", errorType.isRetry());
 

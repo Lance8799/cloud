@@ -6,7 +6,7 @@ import org.springframework.beans.BeanUtils;
 import java.util.Objects;
 
 /**
- * 多功能复杂接口，抽象类可能更好
+ * 多功能复杂接口，抽象类会更好，只因transmit需要继承entity没有使用抽象类
  */
 public interface DataTransmit {
 

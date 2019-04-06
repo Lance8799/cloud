@@ -1,0 +1,52 @@
+server:
+  port: 10030
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+    status-page-url: http://${spring.cloud.client.ip-address}:${server.port}
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+  client:
+    registry-fetch-interval-seconds: 5 # 默认30秒
+    service-url:
+      defaultZone: http://lance:123@localhost:10000/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health: # 默认情况下，只能输出很少的信息，详细信息，需要通过配置打开
+      show-details: ALWAYS
+
+spring:
+  profiles:
+    active:
+    - secure
+   # springboot 2.0 没有集成turbine
+#  boot:
+#    admin:
+#      turbine:
+#        # 指定熔断服务注册名，通过eureka获取信息
+#        location: turbine
+
+
+--- ## 一个文档的开始
+spring:
+  profiles: simple
+
+---
+spring:
+  profiles: secure
+  security:
+    user:
+      name: lance
+      password: 123
+eureka:
+  instance:
+    metadata-map: # 开启登录，需要在eureka中设置用户密码，与security中一致
+      user.name: lance
+      user.password: 123

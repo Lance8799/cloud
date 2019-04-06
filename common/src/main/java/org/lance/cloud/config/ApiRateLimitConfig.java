@@ -5,7 +5,7 @@ import org.lance.cloud.annotation.RateLimitApi;
 import org.lance.cloud.fixture.ApiRateLimitAspect;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.reflect.Method;
 
-@Deprecated
+/**
+ * @deprecated
+ *
+ * 不需要配置，直接通过aop完成
+ */
 @Configuration
 @AutoConfigureAfter(WebMvcAutoConfiguration.class)
 public class ApiRateLimitConfig implements ApplicationContextAware {

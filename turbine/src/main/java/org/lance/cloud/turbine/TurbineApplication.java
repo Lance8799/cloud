@@ -17,6 +17,9 @@ import org.springframework.cloud.netflix.turbine.EnableTurbine;
  *  http://turbine-hostname:port/turbine.stream
  * 自定义turbine集群：
  *  http://turbine-hostname:port/turbine.stream?cluster=[clusterName]
+ *
+ * @deprecated
+ * 因hystrix停更，Spring boot 2.0后熔断替代为Resilience4j或Sentinel
  */
 @SpringBootApplication
 @EnableHystrixDashboard // 只能监控单个节点

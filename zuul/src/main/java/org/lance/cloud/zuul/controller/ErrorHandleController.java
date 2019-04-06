@@ -6,12 +6,11 @@ import org.lance.cloud.api.result.HttpResultBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.ErrorAttributes;
-import org.springframework.boot.autoconfigure.web.ErrorController;
+import org.springframework.boot.web.servlet.error.ErrorAttributes;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -41,8 +40,8 @@ public class ErrorHandleController implements ErrorController {
     }
 
     private Map<String, Object> getErrorAttributes(HttpServletRequest request) {
-        RequestAttributes requestAttributes = new ServletRequestAttributes(request);
-        return errorAttributes.getErrorAttributes(requestAttributes, true);
+        ServletWebRequest webRequest = new ServletWebRequest(request);
+        return errorAttributes.getErrorAttributes(webRequest, true);
     }
 
 }

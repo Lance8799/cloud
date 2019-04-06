@@ -54,4 +54,5 @@ public class FeignClientConfig {
     public Request.Options feignRequestOptions(){
         return new Request.Options(5000, 10000);
     }
+
 }

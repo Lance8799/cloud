@@ -1,0 +1,30 @@
+server:
+  port: 10000
+
+spring:
+#  profiles:
+#    # 高可用时，指定不同的环境
+#    active: peer1
+  application:
+    name: eureka-servcie
+  # springboot 2.0后，登录认证，账号密码
+  security:
+    user:
+      name: lance
+      password: 123
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    # 单注册中心服务时，不需要去检索服务
+    fetch-registry: false
+    # 单注册中心服务时，不向注册中心注册自己
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+#  server:
+#    # 自我保护模式关闭，生产环境不要设置
+#    enable-self-preservation: false
+#    # 清理间隔
+#    eviction-interval-timer-in-ms: 5000

@@ -1,0 +1,94 @@
+server:
+  # 服务端口
+  port: 10010
+  compression:
+    # 开启数据压缩
+    enabled: true
+    # 指定数据压缩类型
+    mime-types: text/html,text/xml,text/javascript,text/css,text/plain,application/javascript
+## Spring ##
+spring:
+  application:
+    name: zuul
+  ## Rabbit MQ
+#  rabbitmq:
+#    username: guest
+#    password: guest
+  ## Zipkin
+#  zipkin:
+#    rabbitmq: # MQ方式
+#      queue: zipkin
+#    base-url: http://localhost:19411 # zipkin地址，默认为：http://localhost:9411。使用MQ方式时不需要
+  ## Sleuth
+  sleuth:
+    sampler:
+      # 抽样率，1为100%即每个请求，默认为0.1。Http方式去发送采集数据, 对性能有很大的影响
+      percentage: 1
+## Eureka ##
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port} # 客户端在注册时服务的 Instance ID
+    status-page-url: http://${spring.cloud.client.ip-address}:${server.port}/swagger-ui.html # 自定义实例跳转链接
+    prefer-ip-address: true
+  client:
+    service-url: # 默认注册中心地址
+      defaultZone: http://lance:123@localhost:10000/eureka
+## Zuul ##
+zuul:
+#  prefix: /cloud # 对所有接口前增加前缀
+  ignored-services: '*' # 忽略所有没有配置的服务
+#  ignored-patterns: /**/ignore/** # 忽略路径规则，以下表示所有接口前缀包含ignore的也会忽略
+#  ignored-headers: # 忽略请求头，对request和response
+#  ignore-security-headers: false # 关闭忽略Spring Security的安全认证请求头
+#  sensitive-headers: # 忽略指定请求头，可设置为空不忽略，默认为"Cookie", "Set-Cookie", "Authorization"。在指定服务中设置会覆盖全局
+#  ribbon-isolation-strategy: thread # 网关ribbon的隔离策略，默认为SEMAPHORE
+#  thread-pool:
+#    use-separate-thread-pools: true # 指定隔离策略为thread时，可分开使用不同线程池，默认为同一个
+#    thread-pool-key-prefix: zpool # 线程池前缀
+  SendErrorFilter: # 通过配置方式来禁用过滤器，格式为"zuul.过滤器的类名.过滤器类型.disable=true"
+    error:
+      disable: true
+  AddResponseHeaderFilter:
+    post:
+      disable: true
+  routes: # 定义服务的路由，key默认会设置为serviceId，可设置多个key对应一个服务
+    sample:
+      path: /sample/**
+      service-id: sample-service
+    substitute:
+      path: /substitute/**
+      service-id: substitute-service
+      strip-prefix: false # 忽略前缀 /substitute
+    local: # 本地跳转
+      path: /local/**
+      url: forward:/local
+    auth:
+      path: /auth/**
+      url: forward:/auth/token
+  ratelimit: # zuul 限流
+    enabled: true
+    repository: in_memory
+    behind-proxy: true
+    default-policy: # 默认策略，30秒内允许10个访问，或者要求总请求时间小于20秒
+      limit: 10
+      quota: 20
+      refresh-interval: 30
+      type: url
+    policies: # 指定服务策略
+      sample-service:
+        limit: 5
+        quota: 10
+        refresh-interval: 15
+
+## 自定义 ##
+swagger:
+  group:
+    auth:
+      ant-paths: /auth/**
+      title: Auth Api
+    local:
+      ant-paths: /local/**
+      title: Local Api
+# 白名单
+white:
+  apis: /substitute/product/

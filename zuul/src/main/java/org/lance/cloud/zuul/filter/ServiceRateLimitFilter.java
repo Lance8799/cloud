@@ -4,17 +4,15 @@ import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.RateLimiter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.lance.cloud.api.result.HttpResult;
 import org.lance.cloud.api.result.HttpResultBuilder;
 import org.lance.cloud.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.endpoint.SystemPublicMetrics;
-import org.springframework.boot.actuate.metrics.Metric;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import java.util.Optional;
 import java.util.concurrent.ConcurrentMap;
 
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.*;
@@ -31,8 +29,12 @@ public class ServiceRateLimitFilter extends ZuulFilter {
 
     private static final RateLimiter defaultLimiter = RateLimiter.create(100);
 
+    // springboot 2.0没有提供
+//    @Autowired
+//    private SystemPublicMetrics systemPublicMetrics;
+
     @Autowired
-    private SystemPublicMetrics systemPublicMetrics;
+    private MeterRegistry meterRegistry;
 
     @Override
     public String filterType() {
@@ -89,8 +91,12 @@ public class ServiceRateLimitFilter extends ZuulFilter {
      * @return
      */
     private boolean isMemoryOver() {
-        Optional<Metric<?>> memFreeMetric = systemPublicMetrics.metrics().stream().filter(m -> "mem.free".equals(m.getName())).findFirst();
-        // 如果不存在这个指标，稳妥起见，开启流控；如果可用内存小于500,000KB，开启流控
-        return memFreeMetric.map(metric -> metric.getValue().longValue() < 500000L).orElse(true);
+//        Optional<Metric<?>> memFreeMetric = systemPublicMetrics.metrics().stream().filter(m -> "mem.free".equals(m.getName())).findFirst();
+//        // 如果不存在这个指标，稳妥起见，开启流控；如果可用内存小于500,000KB，开启流控
+//        return memFreeMetric.map(metric -> metric.getValue().longValue() < 500000L).orElse(true);
+
+        // 单位字节
+        double memory = meterRegistry.find("jvm.memory.committed").meter().measure().iterator().next().getValue();
+        return memory < 500 * 1000 * 1000;
     }
 }

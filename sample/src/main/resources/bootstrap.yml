@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: sample-service
+  ## Nacos ##
+  # Nacos Spring Cloud 中，dataId 的完整格式，${prefix}-${spring.profile.active}.${file-extension}
+  # prefix 默认为 spring.application.name 的值，也可以通过配置项 spring.cloud.nacos.config.prefix来配置
+  # Spring Cloud 原生注解 @RefreshScope 实现配置自动更新
+  # Spring Cloud 启动时会先找bootstrap配置，如果将配置管理设置写在application会初始化两次ConfigFactory，第一次会创建失败
+  cloud:
+    nacos:
+      config: # 配置管理
+        server-addr: localhost:8848
+      discovery: # 注册中心
+        server-addr: localhost:8848
+

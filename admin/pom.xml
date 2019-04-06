@@ -11,10 +11,14 @@
 
     <artifactId>admin</artifactId>
 
+    <properties>
+        <admin.server.version>2.1.2</admin.server.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka</artifactId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
         <dependency>
@@ -22,23 +26,41 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
         <!--Springboot Admin-->
         <dependency>
             <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-server</artifactId>
-            <version>1.5.7</version>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
+            <version>${admin.server.version}</version>
         </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>de.codecentric</groupId>-->
+            <!--<artifactId>spring-boot-admin-server-ui-login</artifactId>-->
+            <!--<version>1.5.7</version>-->
+        <!--</dependency>-->
+
+        <!--JMX-bean management-->
         <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-server-ui</artifactId>
-            <version>1.5.7</version>
+            <groupId>org.jolokia</groupId>
+            <artifactId>jolokia-core</artifactId>
         </dependency>
-        <!--Turbine 插件-->
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-server-ui-turbine</artifactId>
-            <version>1.5.7</version>
-        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>de.codecentric</groupId>-->
+            <!--<artifactId>spring-boot-admin-server-ui</artifactId>-->
+            <!--<version>${admin.server.version}</version>-->
+        <!--</dependency>-->
+        <!--Turbine 插件，在springboot 2.0后会报错-->
+        <!--<dependency>-->
+            <!--<groupId>de.codecentric</groupId>-->
+            <!--<artifactId>spring-boot-admin-server-ui-turbine</artifactId>-->
+            <!--<version>1.5.7</version>-->
+        <!--</dependency>-->
     </dependencies>
 
 </project>

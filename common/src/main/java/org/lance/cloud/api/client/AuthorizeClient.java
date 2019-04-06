@@ -4,7 +4,7 @@ import org.lance.cloud.api.ProductApi;
 import org.lance.cloud.api.request.AuthRequest;
 import org.lance.cloud.api.result.HttpResult;
 import org.lance.cloud.config.FeignClientConfig;
-import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**

@@ -1,0 +1,48 @@
+server:
+  port: ${range.port:10200}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+#spring:
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
+   ## Zipkin ##
+#  zipkin:
+#    rabbitmq:
+#      queue: zipkin
+
+
+logging:
+  level:
+    com.alibaba.nacos.api.config: debug
+
+## Custom ##
+swagger:
+  author: Lance
+  version: 1.0
+  title: Substitute API
+  ant-paths: /sub/**
+
+filter:
+  authorize:
+    enabled: false
+  timing:
+    enabled: false
+
+## CacheSupport ##
+#caching:
+#  name: cacheSupport # 注解动态方式设置缓存名和ttl
+#  redis: # 配置文件方式设置缓存名和ttl
+#    support: 100 # 名字要对应注解中的cacheName
+#    product: 200
+

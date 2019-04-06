@@ -11,6 +11,12 @@ import org.springframework.stereotype.Component;
 import java.util.function.Function;
 
 /**
+ * @since 2.0
+ * 正常情况下cacheNames只能是普通字符串，不支持配置文件
+ * FIXME 使cacheNames支持${}形式，目前只能在配置文件中先定义各缓存名，默认名为support
+ *
+ *
+ * @version 1.5
  * 可通过配置文件设置缓存名${cache.name}
  * 在注解中加上具体的缓存时间，不设置则用全局的
  * 在name后添加#设置时间，单位为秒
@@ -22,7 +28,7 @@ import java.util.function.Function;
  * });
  */
 @Component
-@CacheConfig(cacheNames = "${cache.name:redis}#120", keyGenerator = "defaultKeyGenerator")
+@CacheConfig(cacheNames = "${caching.name:support}#100", keyGenerator = "defaultKeyGenerator")
 public class CacheSupport {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -47,4 +53,5 @@ public class CacheSupport {
         if (logger.isDebugEnabled())
             logger.debug("删除缓存操作，参数{}", v);
     }
+
 }

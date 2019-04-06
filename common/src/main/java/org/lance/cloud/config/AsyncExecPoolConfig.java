@@ -52,7 +52,7 @@ public class AsyncExecPoolConfig implements AsyncConfigurer {
     public AsyncExecPoolProp asyncExecPoolConfig(){return new AsyncExecPoolProp();}
 
     @ConfigurationProperties("async.exec.pool")
-    class AsyncExecPoolProp {
+    public static class AsyncExecPoolProp {
 
         // 核心线程数
         private int corePoolSize = 5;

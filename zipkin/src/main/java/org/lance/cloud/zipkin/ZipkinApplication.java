@@ -11,6 +11,10 @@ import zipkin.server.EnableZipkinServer;
  *
  * 应用端添加spring-cloud-starter-zipkin和spring-rabbit
  * 配置zipkin.rabbitmq.queue=*
+ *
+ *
+ * @deprecated
+ * Spring boot 2.0后，官方不再支持使用自建Zipkin Server的方式进行服务链路追踪，而是直接提供了编译好的 jar 包来给我们使用
  */
 @SpringBootApplication
 //@EnableZipkinStreamServer

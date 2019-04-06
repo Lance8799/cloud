@@ -34,8 +34,8 @@ public class ServiceFallbackProvider implements FallbackProvider {
     }
 
     @Override
-    public ClientHttpResponse fallbackResponse(Throwable cause) {
-        logger.error("网关服务熔断：{}", cause.getCause().getMessage());
+    public ClientHttpResponse fallbackResponse(String route, Throwable cause) {
+        logger.error("网关服务熔断，路由[{}], 错误信息[{}]", route, cause.getCause().getMessage());
 
         if (cause instanceof HystrixTimeoutException) {
             return response(HttpStatus.GATEWAY_TIMEOUT);
@@ -43,11 +43,16 @@ public class ServiceFallbackProvider implements FallbackProvider {
         return response(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @Override
-    @Deprecated
-    public ClientHttpResponse fallbackResponse() {
-        return null;
-    }
+    // springboot 1.5
+//    @Override
+//    public ClientHttpResponse fallbackResponse(Throwable cause) {
+//        logger.error("网关服务熔断：{}", cause.getCause().getMessage());
+//
+//        if (cause instanceof HystrixTimeoutException) {
+//            return response(HttpStatus.GATEWAY_TIMEOUT);
+//        }
+//        return response(HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 
     private ClientHttpResponse response(final HttpStatus status) {
         return new ClientHttpResponse() {

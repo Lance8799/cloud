@@ -1,0 +1,128 @@
+server:
+  port: ${range.port}
+
+# 1.5.x版本中通过management.security.enabled=false来暴露所有端点，
+# 2.x版本中通过management.endpoint.env.enabled=true，默认为true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' # 暴露所有端点
+  endpoint:
+    health:
+      show-details: ALWAYS
+  # TODO metrics不懂
+  metrics:
+    export:
+      datadog:
+        enabled: false
+    use-global-registry: false
+
+spring:
+  cloud:
+    ## Alibaba sentinel ##
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+  ## Jackson ##
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_empty
+  ## RabbitMQ ##
+#  rabbitmq:
+#    username: guest
+#    password: guest
+  ## Sleuth ##
+#  zipkin:
+#    rabbitmq: # 使用MQ方式时的队列
+#      queue: zipkin
+#    base-url: http://localhost:19411 # zipkin地址，默认为：http://localhost:9411。使用MQ方式时不需要
+
+
+## Eureka ##
+#eureka:
+#  instance:
+#    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port} # 客户端在注册时服务的 Instance ID，springboot 1.5使用spring.cloud.client.ipAddress
+#    prefer-ip-address: true # 以IP地址注册到服务中心，相互注册使用IP地址
+#    status-page-url: http://${spring.cloud.client.ip-address}:${server.port}/swagger-ui.html # 自定义实例跳转链接
+#    metadata-map: # 自定义元数据
+#      mine: something
+#  client:
+#    service-url:
+#      defaultZone: http://lance:123@localhost:10000/eureka # 默认注册中心地址
+#      defaultZone: http://lance:123@eureka-peer1:10001/eureka,http://lance:123@eureka-peer2:10002/eureka # 高可用时服务地址配置
+#    healthcheck: # 健康检查应设置在application.yml而不是bootstrap.yml
+#      enabled: true
+
+## Ribbon ##
+ribbon:
+  eager-load: # 饥饿加载模式，服务启动的时候就初始化
+    enabled: true
+    clients: substitute-service # 饥饿加载的服务名，若有多个则用逗号隔开
+# 指定服务的ribbon设置
+#substitute-service:
+#  ribbon:
+#    # 请求连接的超时时间
+#    ConnectTimeout: 250
+#    # 请求处理的超时时间
+#    ReadTimeout: 1000
+#    # 对当前实例的重试次数
+#    maxAutoRetries: 1
+#    # 切换实例的重试次数
+#    maxAutoRetriesNextServer: 3
+#    # 对所有操作请求都进行重试
+#    okToRetryOnAllOperations: true
+#    #自定义服务调用的负载策略，格式：<clientName>.ribbon.NFLoadBalancerRuleClassName
+#    NFLoadBalancerRuleClassName: org.lance.cloud.samplele.rule.MyRibbonRule
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+## Feign ##
+feign:
+  # 使用okhttp替代httpclient
+#  okhttp:
+#    enabled: true
+#  # 启用压缩，在spring-cloud-starter-openfeign:v2.0.2.RELEASE版本前会报错
+#  compression:
+#    request:
+#      enabled: true
+#      # 最小压缩值，默认2048
+#      min-request-size: 1024
+#    response:
+#      enabled: true
+  # feign启用hystrix
+  hystrix:
+    enabled: true
+
+## Hystrix ##
+#hystrix:
+#  #hystrix配置可通过hystrix.command.SERVICE.*=*
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          strategy: SEMAPHORE
+
+## Logger ##
+logging:
+  level:
+    org.lance.cloud.api.client: debug
+
+## Custom ##
+swagger:
+  author: Lance
+  version: 1.0
+  group:
+    sample:
+      title: Sample API
+      ant-paths: /home/**
+    test:
+      title: Test API
+      ant-paths: /test/**
+
+## CacheSupport ##
+#caching:
+#  name: cacheSupport # 注解动态方式设置缓存名和ttl
+#  redis: # 配置文件方式设置缓存名和ttl
+#    support: 100 # 名字要对应注解中的cacheName
+#    product: 200
