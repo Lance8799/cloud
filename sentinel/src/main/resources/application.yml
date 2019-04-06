@@ -1,0 +1,36 @@
+server:
+  port: ${range.port}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' # 暴露所有端点
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+spring:
+  cloud:
+    ## Alibaba sentinel ##
+    sentinel:
+      transport:
+        dashboard: localhost:8844
+      datasource: # 可定义多个数据源 TODO 不知为何SentinelDataSourceHandler中的ApplicationStartedEvent没法触发
+        ds2:
+          nacos:
+            server-addr: localhost:8848
+            dataId: sentinel.degrade.rule
+            groupId: sentinel
+            rule-type: degrade
+
+
+## Sentinel适配Feign
+feign:
+  sentinel:
+    enabled: true
+
+## Logger ##
+logging:
+  level:
+    org.lance.cloud.api.client: debug
