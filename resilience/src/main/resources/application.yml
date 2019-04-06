@@ -1,0 +1,38 @@
+server:
+  port: ${range.port:11100}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+resilience4j:
+  circuitbreaker:
+    backends:
+      annotation:
+        ringBufferSizeInClosedState: 2
+        ringBufferSizeInHalfOpenState: 2
+        waitInterval: 5000
+        failureRateThreshold: 50
+        eventConsumerBufferSize: 10
+        registerHealthIndicator: true
+#        recordFailurePredicate: com.foo.FooRecordFailurePredicate
+#        recordExceptions:
+#          - org.springframework.web.client.HttpServerErrorException
+#        ignoreExceptions:
+#          - org.springframework.web.client.HttpClientErrorException
+
+resilience4j.ratelimiter:
+  limiters:
+    annotation:
+      limitForPeriod: 1
+      limitRefreshPeriodInMillis: 1000
+      timeoutInMillis: 0
+      subscribeForEvents: true
+      registerHealthIndicator: true
+      eventConsumerBufferSize: 100
+
