@@ -5,6 +5,7 @@ import org.lance.cloud.domain.transmit.BusinessTransmit;
 import org.lance.cloud.fescar.caller.service.CallerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,8 +17,8 @@ public class CallerController {
     CallerService service;
 
     @PostMapping("/business")
-    public HttpResult handle(BusinessTransmit transmit, boolean flag){
-        return service.handle(transmit, flag);
+    public HttpResult handle(@RequestBody BusinessTransmit transmit, boolean isRollback){
+        return service.handle(transmit, isRollback);
     }
 
 }

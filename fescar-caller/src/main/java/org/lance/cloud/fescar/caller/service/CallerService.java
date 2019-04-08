@@ -21,8 +21,8 @@ public class CallerService {
     @Autowired
     StorageClient storageClient;
 
-    @GlobalTransactional(timeoutMills = 3000, name = "fescar-business")
-    public HttpResult handle(BusinessTransmit business, boolean flag){
+    @GlobalTransactional(timeoutMills = 5000, name = "fescar-business")
+    public HttpResult handle(BusinessTransmit business, boolean isRollback){
 
         Order order = new Order();
         order.setUserId(business.getUserId());
@@ -42,8 +42,8 @@ public class CallerService {
             throw new ApplicationException("业务处理失败");
         }
 
-        if (!flag) {
-            throw new RuntimeException("测试抛异常后，分布式事务回滚！");
+        if (isRollback) {
+            throw new RuntimeException("分布式事务回滚！");
         }
 
         return HttpResultBuilder.ok(null, "业务处理成功");
