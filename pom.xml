@@ -35,7 +35,7 @@
         <java.version>1.8</java.version>
         <elasticjob.version>2.1.5</elasticjob.version>
         <!-- alibaba -->
-        <fescar.version>0.2.1</fescar.version>
+        <fescar.version>0.4.1</fescar.version>
         <sentinel.version>0.2.1.RELEASE</sentinel.version>
 
         <mybatis-plus.version>3.1.0</mybatis-plus.version>
