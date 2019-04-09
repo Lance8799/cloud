@@ -30,4 +30,4 @@
 
 * 运行Fescar例子需要[Fescar服务端](https://github.com/Lance8799/cloud/blob/2.0/FescarServer.md)和[初始化数据库](https://github.com/Lance8799/cloud/blob/2.0/fescar-caller/src/main/resources/fescar.sql)。
 
-* 注册中心可替换为[Alibaba Nacos](https://github.com/alibaba/Nacos)，需配置Nacos服务。设置可查看[NacosServer.md](https://github.com/Lance8799/cloud/blob/2.0/NacosServer.md)或查看[官网](https://nacos.io/zh-cn/)。
+* 注册中心可替换为[Alibaba Nacos](https://github.com/alibaba/Nacos)，需配置Nacos服务。可查看[Nacos服务配置](https://github.com/Lance8799/cloud/blob/2.0/NacosServer.md)或查看[官网](https://nacos.io/zh-cn/)。
