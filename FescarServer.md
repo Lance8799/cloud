@@ -1,4 +1,4 @@
-##1.配置数据库
+## 1.配置数据库
 
 **MySQL必须使用InnoDB引擎**
 
@@ -11,7 +11,7 @@
         password: xxx
         username: xxx
         
-##2.创建UNDO_LOG表
+## 2.创建UNDO_LOG表
 
 **UNDO_LOG表是FESCAR AT模式必须**
 
@@ -29,7 +29,7 @@
       UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`)
     ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
     
-##3.启动服务
+## 3.启动服务
 
 下载[Fescar服务端](https://github.com/alibaba/fescar/releases), 并解压
 
