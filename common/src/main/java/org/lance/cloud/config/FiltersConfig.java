@@ -10,8 +10,9 @@ import org.springframework.core.annotation.Order;
 
 /**
  * 过滤器配置
+ *
+ * 可用@WebFilter(urlPatterns = "/*", filterName = "TimingFilter") + @ServletComponentScan的方式注册filter
  */
-// 可用@WebFilter(urlPatterns = "/*", filterName = "TimingFilter") + @ServletComponentScan的方式注册filter
 @Configuration
 public class FiltersConfig {
 
@@ -23,7 +24,7 @@ public class FiltersConfig {
     @Order(Integer.MAX_VALUE - 1)
     @ConditionalOnProperty(prefix = "filter.authorize", name = "enabled", havingValue = "true")
     public FilterRegistrationBean AuthorizeFilerRegistration(){
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean(new AuthorizeFilter());
+        FilterRegistrationBean<AuthorizeFilter> registrationBean = new FilterRegistrationBean<>(new AuthorizeFilter());
         registrationBean.addUrlPatterns("/*");
         // 请求中带有token、swagger、api都不过滤
         registrationBean.addInitParameter("exclusions", "jsonRpc,token,swagger");
@@ -39,7 +40,7 @@ public class FiltersConfig {
     @Order // 默认为MAX_VALUE，则优先级最后
     @ConditionalOnProperty(prefix = "filter.timing", name = "enabled", havingValue = "true")
     public FilterRegistrationBean timingFilerRegistration(){
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean(new TimingFilter());
+        FilterRegistrationBean<TimingFilter> registrationBean = new FilterRegistrationBean<>(new TimingFilter());
         registrationBean.addUrlPatterns("/*");
         registrationBean.addInitParameter("exclusions", "swagger");
         registrationBean.setName("TimingFilter");
