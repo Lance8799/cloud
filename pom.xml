@@ -21,10 +21,6 @@
         <module>flux</module>
         <module>sentinel</module>
         <module>redis</module>
-        <module>fescar-account</module>
-        <module>fescar-storage</module>
-        <module>fescar-order</module>
-        <module>fescar-caller</module>
         <module>txlcn-manager</module>
         <module>resilience</module>
         <module>seata</module>
