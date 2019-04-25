@@ -9,30 +9,30 @@ public class SnowFlake {
     private long datacenterId;
     private long sequence;
 
-    public SnowFlake(long workerId, long datacenterId, long sequence){
+    public SnowFlake(long workerId, long dataCenterId, long sequence){
         // sanity check for workerId
         if (workerId > maxWorkerId || workerId < 0) {
             throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0",maxWorkerId));
         }
-        if (datacenterId > maxDatacenterId || datacenterId < 0) {
-            throw new IllegalArgumentException(String.format("datacenter Id can't be greater than %d or less than 0",maxDatacenterId));
+        if (dataCenterId > maxDataCenterId || dataCenterId < 0) {
+            throw new IllegalArgumentException(String.format("datacenter Id can't be greater than %d or less than 0", maxDataCenterId));
         }
         System.out.printf("worker starting. timestamp left shift %d, datacenter id bits %d, worker id bits %d, sequence bits %d, workerid %d",
                 timestampLeftShift, dataCenterIdBits, workerIdBits, sequenceBits, workerId);
 
         this.workerId = workerId;
-        this.datacenterId = datacenterId;
+        this.datacenterId = dataCenterId;
         this.sequence = sequence;
     }
 
     private long workerIdBits = 5L;
     private long dataCenterIdBits = 5L;
     private long maxWorkerId = -1L ^ (-1L << workerIdBits); // workerId可以使用的最大数值：31
-    private long maxDatacenterId = -1L ^ (-1L << dataCenterIdBits);
+    private long maxDataCenterId = -1L ^ (-1L << dataCenterIdBits);
     private long sequenceBits = 12L;
 
     private long workerIdShift = sequenceBits;
-    private long datacenterIdShift = sequenceBits + workerIdBits;
+    private long dataCenterIdShift = sequenceBits + workerIdBits;
     private long timestampLeftShift = sequenceBits + workerIdBits + dataCenterIdBits;
     private long sequenceMask = -1L ^ (-1L << sequenceBits);
 
@@ -72,7 +72,7 @@ public class SnowFlake {
         long epoch = 1288834974657L; // 起始时间戳
 
         return ((timestamp - epoch) << timestampLeftShift) |
-                (datacenterId << datacenterIdShift) |
+                (datacenterId << dataCenterIdShift) |
                 (workerId << workerIdShift) |
                 sequence;
     }
