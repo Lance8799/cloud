@@ -1,4 +1,9 @@
-## 1.配置数据库
+# Seata
+Seata例子运行说明
+
+## 设置Fescar服务器
+
+### 1.配置数据库
 
 **MySQL必须使用InnoDB引擎**
 
@@ -11,7 +16,7 @@
         password: xxx
         username: xxx
         
-## 2.创建UNDO_LOG表
+### 2.创建UNDO_LOG表
 
 **UNDO_LOG表是FESCAR AT模式必须**
 
@@ -29,10 +34,22 @@
       UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`)
     ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
     
-## 3.启动服务
+### 3.启动服务
 
 下载[Fescar服务端](https://github.com/alibaba/fescar/releases), 并解压
 
     sh fescar-server.sh $LISTEN_PORT $PATH_FOR_PERSISTENT_DATA
     e.g.
     sh fescar-server.sh 8091 /home/admin/fescar/data/
+
+## 设置数据库
+
+查看[初始化脚本](https://github.com/Lance8799/cloud/blob/feature/seata/seata/seata-business/src/main/resources/sql/init.sql)。
+
+## 运行服务
+
+各服务使用Eureka作注册中心，需要先启动Eureka服务。而后依次启动各Seata样例。
+
+## 其他
+
+项目的中file.conf用于配置Seata的连接信息；registry.conf用于配置连接信息的获取方法，目前支持file、nacos、eureka、redis、zk。

@@ -34,8 +34,7 @@
 * **seata-storage**：库存服务
 * **seata-business**： 业务服务入口
 
-**运行Seata样例需要[Fescar服务端](https://github.com/Lance8799/cloud/blob/2.0/FescarServer.md)和[初始化数据库](https://github.com/Lance8799/cloud/blob/feature/seata/seata/seata-business/src/main/resources/sql/init.sql)。**
-
+**可查看[Seata例子说明](https://github.com/Lance8799/cloud/blob/master/seata/README.md)**
 
 ## 依赖
 
