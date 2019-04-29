@@ -50,6 +50,14 @@ Seata例子运行说明
 
 各服务使用Eureka作注册中心，需要先启动Eureka服务。而后依次启动各Seata样例。
 
+事务正常访问路径：
+
+    http://localhost:9090/business/purchase/commit
+    
+事务回滚访问路径：
+
+    http://localhost:9090/business/purchase/rollback
+
 ## 其他
 
 项目的中file.conf用于配置Seata的连接信息；registry.conf用于配置连接信息的获取方法，目前支持file、nacos、eureka、redis、zk。
