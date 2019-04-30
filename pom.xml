@@ -21,9 +21,9 @@
         <module>flux</module>
         <module>sentinel</module>
         <module>redis</module>
-        <module>txlcn-manager</module>
         <module>resilience</module>
         <module>seata</module>
+        <module>txlcn</module>
     </modules>
 
     <properties>

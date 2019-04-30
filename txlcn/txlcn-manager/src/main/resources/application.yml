@@ -1,0 +1,23 @@
+server:
+  port: 7970
+
+spring:
+  application:
+    name: txlcn-manager-service
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/tx-manager?characterEncoding=UTF-8
+    username: root
+    password: root
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
+tx-lcn:
+  manager:
+    host: 127.0.0.1
+    port: 8070 # TM监听Socket端口. 默认为 ${server.port} + 100
+    dtx-time: 10000 # 分布式事务执行总时间(ms)
+    admin-key: 123 # 后台密码
+  logger:
+    enabled: true # 开启后台日志
