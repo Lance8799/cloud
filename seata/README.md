@@ -1,6 +1,12 @@
 # Seata
 Seata例子运行说明
 
+* **seata-common**：通用依赖
+* **seata-account**：账户服务
+* **seata-order**：订单服务
+* **seata-storage**：库存服务
+* **seata-business**： 业务服务入口
+
 ## 设置Fescar服务器
 
 ### 1.配置数据库

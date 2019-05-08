@@ -2,6 +2,13 @@
 
 TX-LCN 主要有两个模块，Tx-Client(TC) 和Tx-Manager(TM)。TC作为微服务下的依赖，TM是独立的服务。可查看官网[快速开始](http://www.txlcn.org/zh-cn/docs/start.html)。
 
+* **txlcn-manager**: TX-LCN服务器端
+* **txlcn-common**：通用依赖
+* **txlcn-account**：账户服务
+* **txlcn-order**：订单服务
+* **txlcn-storage**：库存服务
+* **txlcn-business**： 业务服务入口
+
 ## 环境准备
 
 1.TM需要依赖的中间件： JRE1.8+, Mysql5.6+, Redis3.2+

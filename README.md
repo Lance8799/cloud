@@ -13,9 +13,9 @@
 * **redis**：Spring Redis和Redisson相关。
 * **resilience**：Hystrix的替代，提供熔断降级、流量控制等模块。
 * **sentinel**：Alibaba Sentinel，流量控制、熔断降级、系统负载保护等多个维度保护服务。
-* **seata**: Alibaba分布式事务框架事例。
+* **seata**: Alibaba分布式事务框架样例。
+* **txlcn**：LCN分布式事务框架样例。
 * **turbine**：Hystrix集群管理。
-* **txlcn-manager**：LCN分布式事务框架服务端。
 * **zipkin**：微服务链路跟踪，提供简明的管理界面。（SpringBoot 2.x后，官方不再支持使用自建Zipkin Server的方式，而是直接提供了编译好的 jar）
 * **zuul**：Netflix的网关服务，包括路径规则、服务限流等。
 
@@ -23,18 +23,15 @@
 
 * **sample**：整合了RabbitMQ，Zipkin，Feign，Hystrix，Cache，Sentinel，Nacos等。
 
-* **substitute**：主要提供sample模块调用。
+* **substitute**：供sample模块调用。
 
 ### Alibaba Seata样例
 
-* **seata-common**：通用依赖
+**查看[Seata例子说明](https://github.com/Lance8799/cloud/blob/master/seata/README.md)**
 
-* **seata-account**：账户服务
-* **seata-order**：订单服务
-* **seata-storage**：库存服务
-* **seata-business**： 业务服务入口
+### TX-LCN 样例
 
-**可查看[Seata例子说明](https://github.com/Lance8799/cloud/blob/master/seata/README.md)**
+**查看[TX-LCN例子说明](https://github.com/Lance8799/cloud/blob/master/txlcn/README.md)**
 
 ## 依赖
 
