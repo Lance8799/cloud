@@ -27,11 +27,11 @@
 
 ### Alibaba Seata样例
 
-**查看[Seata例子说明](https://github.com/Lance8799/cloud/blob/master/seata/README.md)**
+**查看[Seata例子](https://github.com/Lance8799/cloud/tree/master/seata)**
 
 ### TX-LCN 样例
 
-**查看[TX-LCN例子说明](https://github.com/Lance8799/cloud/blob/master/txlcn/README.md)**
+**查看[TX-LCN例子](https://github.com/Lance8799/cloud/tree/master/txlcn)**
 
 ## 依赖
 
