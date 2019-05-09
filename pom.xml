@@ -24,6 +24,7 @@
         <module>txlcn-manager</module>
         <module>resilience</module>
         <module>seata</module>
+        <module>elasticsearch</module>
     </modules>
 
     <properties>
