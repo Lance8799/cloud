@@ -51,6 +51,7 @@ public final class Foo implements Serializable {
         this.status = status;
     }
     
+    @Override
     public String toString() {
         return String.format("id: %s, location: %s, status: %s", id, location, status);
     }

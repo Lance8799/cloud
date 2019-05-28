@@ -19,8 +19,8 @@ package org.lance.cloud.elastic.job.sample.job.dataflow;
 
 import com.dangdang.ddframe.job.api.ShardingContext;
 import com.dangdang.ddframe.job.api.dataflow.DataflowJob;
-import com.dangdang.ddframe.job.example.fixture.entity.Foo;
-import com.dangdang.ddframe.job.example.fixture.repository.FooRepository;
+import org.lance.cloud.elastic.job.sample.fixture.entity.Foo;
+import org.lance.cloud.elastic.job.sample.fixture.repository.FooRepository;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
