@@ -17,6 +17,10 @@ public class HttpResultBuilder {
         return HttpResultBuilder.ok(data, "");
     }
 
+    public static <T> HttpResult<T> ok(){
+        return ok(null, "");
+    }
+
     public static <T> HttpResult<T> fail(Integer code, String message){
         return new HttpResult<>(code, message, null);
     }
