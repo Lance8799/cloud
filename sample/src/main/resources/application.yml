@@ -1,5 +1,5 @@
 server:
-  port: ${range.port}
+  port: ${range.port:10100}
 
 # 1.5.x版本中通过management.security.enabled=false来暴露所有端点，
 # 2.x版本中通过management.endpoint.env.enabled=true，默认为true
