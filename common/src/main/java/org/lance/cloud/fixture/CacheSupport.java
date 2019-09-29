@@ -35,23 +35,26 @@ public class CacheSupport {
 
     @Cacheable
     public <V> V read(String id, Function<String, V> function){
-        if (logger.isDebugEnabled())
+        if (logger.isDebugEnabled()){
             logger.debug("读取缓存操作，参数{}", id);
+        }
         return function.apply(id);
     }
 
     @CachePut
     public <V> V put(V v){
-        if (logger.isDebugEnabled())
+        if (logger.isDebugEnabled()) {
             logger.debug("写入缓存操作，参数{}", v);
+        }
         return v;
     }
 
 //    @CacheEvict(allEntries = true, beforeInvocation = true) //清除所有缓存
     @CacheEvict
     public <V> void remove(V v){
-        if (logger.isDebugEnabled())
+        if (logger.isDebugEnabled()) {
             logger.debug("删除缓存操作，参数{}", v);
+        }
     }
 
 }

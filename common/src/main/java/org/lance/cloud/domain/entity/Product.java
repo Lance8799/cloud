@@ -3,19 +3,26 @@ package org.lance.cloud.domain.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.experimental.Accessors;
 import org.lance.cloud.domain.entity.enums.ProductStatus;
 import org.lance.cloud.exception.ApplicationException;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 产品
  */
+@Data
 @Entity
 @ApiModel("产品")
+@Accessors(chain = true)
 //@JsonInclude(JsonInclude.Include.NON_EMPTY)   // 在配置文件设置可以不需要
-public class Product {
+public class Product implements Serializable {
 
 //    @GenericGenerator(name = "uuid-gen", strategy = "uuid")
 //    @GeneratedValue(generator = "uuid-gen")
@@ -58,73 +65,25 @@ public class Product {
         this.updateAt = new Date();
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public ProductStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ProductStatus status) {
-        this.status = status;
-    }
-
-    public Integer getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Integer amount) {
-        this.amount = amount;
-    }
-
-    public Date getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
-    }
-
-    public Date getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
-    }
-
     public Product decrease(Integer amount){
-        if (amount == null || amount <= 0)
+        if (amount == null || amount <= 0) {
             return this;
+        }
         int result = getAmount() - amount;
-        if (result < 0)
+        if (result < 0) {
             throw new ApplicationException("产品数量少于零");
+        }
         this.amount = result;
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", status=" + status +
-                ", amount=" + amount +
-                ", createAt=" + createAt +
-                ", updateAt=" + updateAt +
-                '}';
+    public static Product generate() {
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new Product().setId(UUID.randomUUID().toString());
     }
+
 }

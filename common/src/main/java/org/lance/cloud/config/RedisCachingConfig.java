@@ -11,6 +11,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.CacheErrorHandler;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +21,7 @@ import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -33,9 +35,11 @@ import java.util.Map;
  *
  * 缓存操作异常处理器，必须继承CachingConfigurerSupport
  *
+ * @author Lance
  * @since springboot 2.0
  *
  */
+@EnableCaching
 @Import({CacheSupport.class})
 public class RedisCachingConfig extends CachingConfigurerSupport {
 
@@ -43,6 +47,16 @@ public class RedisCachingConfig extends CachingConfigurerSupport {
 
     @Autowired
     private CachingRedisProp cacheRedisProp;
+
+    @Bean
+    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory){
+        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(factory);
+        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.afterPropertiesSet();
+        return redisTemplate;
+    }
 
     @Bean
     public CachingRedisProp cacheRedisProp(){
@@ -128,19 +142,22 @@ public class RedisCachingConfig extends CachingConfigurerSupport {
         return (target, method, params) -> {
             StringBuilder sb = new StringBuilder();
             // 提取到公共类后，导致类名相同
-            sb.append(target.getClass().getName());
+            sb.append(target.getClass().getSimpleName());
 
-            if (params.length == 0)
+            if (params.length == 0) {
                 return sb.toString();
+            }
 
             Object param = params[0];
-            if (param instanceof String)
-                sb.append(".").append(param);
-            else if (param instanceof DataTransmit)
-                sb.append(".").append(((DataTransmit) param).cacheId());
-            else
-                sb.append(".").append(param.toString());
-
+            if (param instanceof String) {
+                sb.append(":").append(param);
+            }
+            else if (param instanceof DataTransmit) {
+                sb.append(":").append(((DataTransmit) param).cacheId());
+            }
+            else {
+                sb.append(":").append(param.toString());
+            }
             return sb.toString();
         };
     }
