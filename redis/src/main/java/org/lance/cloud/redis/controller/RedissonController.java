@@ -21,10 +21,18 @@ public class RedissonController {
     @Autowired
     private RedissonClient redissonSingle;
 
+    /**
+     * redisson分布式锁
+     *
+     * @param time
+     * @return
+     * @throws InterruptedException
+     */
     @GetMapping("/lock/{time}")
     public String lock(@PathVariable long time) throws InterruptedException {
         RLock lock = redissonSingle.getLock("redissonLock");
-        lock.lock(10, TimeUnit.SECONDS); // 10秒自动释放
+        // 10秒自动释放
+        lock.lock(10, TimeUnit.SECONDS);
 
         TimeUnit.SECONDS.sleep(time);
 
