@@ -10,7 +10,7 @@
 * **eureka**：Netflix的注册中心。
 * **flux**：Spring WebFlux，非阻塞响应式Web框架。
 * **gateway**：Spring Gateway，zuul网关的替代，基于WebFlux开发。
-* **redis**：Spring Redis和Redisson相关。
+* **redis**：Spring Redis相关，包括Caching、Redisson、JetCache。
 * **resilience**：Hystrix的替代，提供熔断降级、流量控制等模块。
 * **sentinel**：Alibaba Sentinel，流量控制、熔断降级、系统负载保护等多个维度保护服务。
 * **seata**: Alibaba分布式事务框架样例。

@@ -4,7 +4,7 @@ import org.lance.cloud.annotation.EnableFilters;
 import org.lance.cloud.annotation.EnableRateLimitApi;
 import org.lance.cloud.annotation.EnableRedisCaching;
 import org.lance.cloud.fixture.ApplicationContextHolder;
-import org.lance.cloud.fixture.PortCommand;
+import org.lance.cloud.fixture.RangePortLauncher;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Import;
 public class SubstituteApplication {
 
     public static void main(String[] args) {
-        PortCommand.range(10200, 10300).run(args);
+        RangePortLauncher.start(10200, 10300, args);
         SpringApplication.run(SubstituteApplication.class, args);
     }
 }

@@ -6,7 +6,7 @@ import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import org.lance.cloud.fixture.PortCommand;
+import org.lance.cloud.fixture.RangePortLauncher;
 import org.lance.cloud.sentinel.util.SentinelUtil;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,7 +28,7 @@ import java.util.List;
 public class SentinelApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
-        PortCommand.range(10300, 10400).run(args);
+        RangePortLauncher.start(args);
         SpringApplication.run(SentinelApplication.class, args);
     }
 

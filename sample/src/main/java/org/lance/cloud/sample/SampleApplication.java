@@ -3,7 +3,7 @@ package org.lance.cloud.sample;
 import org.lance.cloud.annotation.EnableAspect;
 import org.lance.cloud.annotation.EnableErrorHandle;
 import org.lance.cloud.annotation.EnableFilters;
-import org.lance.cloud.fixture.PortCommand;
+import org.lance.cloud.fixture.RangePortLauncher;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -32,7 +32,7 @@ public class SampleApplication {
     }
 
     public static void main(String[] args) {
-        PortCommand.range(10100, 10200).run(args);
+        RangePortLauncher.start(10100, 10200, args);
         SpringApplication.run(SampleApplication.class, args);
     }
 }

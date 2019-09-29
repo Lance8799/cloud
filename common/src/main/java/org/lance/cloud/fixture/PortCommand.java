@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
  *
  * 生产环境中不要使用这种静态链式
  */
+@Deprecated
 public class PortCommand {
 
     private PortCommand(){}
