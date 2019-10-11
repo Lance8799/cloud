@@ -1,6 +1,6 @@
 package org.lance.cloud.seata.business;
 
-import com.alibaba.fescar.spring.annotation.GlobalTransactional;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.lance.cloud.seata.common.api.OrderClient;
 import org.lance.cloud.seata.common.api.StorageClient;
 import org.springframework.beans.factory.annotation.Autowired;

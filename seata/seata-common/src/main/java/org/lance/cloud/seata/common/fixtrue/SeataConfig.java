@@ -1,10 +1,9 @@
 package org.lance.cloud.seata.common.fixtrue;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.fescar.rm.datasource.DataSourceProxy;
-import com.alibaba.fescar.spring.annotation.GlobalTransactionScanner;
+import io.seata.rm.datasource.DataSourceProxy;
+import io.seata.spring.annotation.GlobalTransactionScanner;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

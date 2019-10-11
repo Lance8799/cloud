@@ -78,12 +78,6 @@
             <optional>true</optional>
         </dependency>
 
-        <dependency>
-            <groupId>com.alibaba.fescar</groupId>
-            <artifactId>fescar-spring</artifactId>
-            <optional>true</optional>
-        </dependency>
-
     </dependencies>
 
 </project>
