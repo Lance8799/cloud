@@ -24,6 +24,8 @@
         <module>resilience</module>
         <module>seata</module>
         <module>txlcn</module>
+        <module>xxl-job</module>
+        <module>elastic-job</module>
     </modules>
 
     <properties>
