@@ -7,6 +7,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
+ * Seata示例启动类
+ *
  * @author Lance
  */
 @SpringBootApplication

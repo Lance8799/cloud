@@ -42,19 +42,39 @@ Seata例子运行说明
     
 ### 3.启动服务
 
-下载[Fescar服务端](https://github.com/alibaba/fescar/releases), 并解压
+下载[seata服务端](https://github.com/seata/seata/releases), 并解压
 
-    sh fescar-server.sh $LISTEN_PORT $PATH_FOR_PERSISTENT_DATA
+    sh seata-server.sh(for linux and mac) or cmd seata-server.bat(for windows) [options]
+      Options:
+        --host, -h
+          The host to bind.
+          Default: 0.0.0.0
+        --port, -p
+          The port to listen.
+          Default: 8091
+        --storeMode, -m
+          log store mode : file、db
+          Default: file
+        --help
+        
     e.g.
-    sh fescar-server.sh 8091 /home/admin/fescar/data/
+    sh seata-server.sh -p 8091 -h 127.0.0.1 -m file
 
 ## 设置数据库
 
 查看[初始化脚本](https://github.com/Lance8799/cloud/blob/feature/seata/seata/seata-business/src/main/resources/sql/init.sql)。
 
+## 服务注册
+
+各服务使用Nacos作注册中心，需要先启动Nacos服务。
+
+* 注册配置信息到nacos
+
+        ./conf/nacos-config.sh 127.0.0.1
+
 ## 运行服务
 
-各服务使用Eureka作注册中心，需要先启动Eureka服务。而后依次启动各Seata样例。
+依次启动各Seata示例。
 
 事务正常访问路径：
 

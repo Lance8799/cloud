@@ -17,13 +17,13 @@ public class BusinessController {
 
     @GetMapping("/purchase/commit")
     public String purchaseCommit(){
-        service.purchase("1001", "2001", 1);
+        service.purchase("1001", "product-01", 1);
         return "commit";
     }
 
     @GetMapping("/purchase/rollback")
     public String purchaseRollback(){
-        service.purchase("1002", "2001", 1);
+        service.purchase("1002", "product-01", 1);
         return "rollback";
     }
 }

@@ -1,8 +1,8 @@
 package org.lance.cloud.seata.common.api;
 
-import com.alibaba.fescar.core.context.RootContext;
 import feign.Logger;
 import feign.RequestInterceptor;
+import io.seata.core.context.RootContext;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;

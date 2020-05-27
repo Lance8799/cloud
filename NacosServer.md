@@ -52,7 +52,7 @@
 
 启动命令(在没有参数模式，是集群模式):
 
-	sh startup.sh
+	sh startup.sh -m standalone
 
 **Window**
 
@@ -60,7 +60,6 @@
 或者双击 startup.cmd 文件
 
 ## 6.访问管理页
-
 
 	http://localhost:8848/nacos/
 
