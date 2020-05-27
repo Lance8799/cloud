@@ -11,14 +11,17 @@ public class MyRibbonRule implements IRule {
 
     private ILoadBalancer lb;
 
+    @Override
     public Server choose(Object key) {
         return lb.getAllServers().get(0);
     }
 
+    @Override
     public void setLoadBalancer(ILoadBalancer lb) {
         this.lb = lb;
     }
 
+    @Override
     public ILoadBalancer getLoadBalancer() {
         return lb;
     }
