@@ -37,4 +37,4 @@
 
 * **部分模块使用到Swagger，依赖于[swagger-spring-boot-starter](https://github.com/Lance8799/swagger-spring-boot-starter)。需要在本地使用mvn install布署到本地maven仓库。**
 
-* 注册中心可替换为[Alibaba Nacos](https://github.com/alibaba/Nacos)，需配置Nacos服务。可查看[Nacos服务配置](https://github.com/Lance8799/cloud/blob/2.0/NacosServer.md)或查看[官网](https://nacos.io/zh-cn/)。
+* 注册中心可替换为[Alibaba Nacos](https://github.com/alibaba/Nacos)，需配置Nacos服务。可查看[Nacos服务配置](https://github.com/Lance8799/cloud/blob/master/NacosServer.md)或查看[官网](https://nacos.io/zh-cn/)。
