@@ -42,7 +42,7 @@
         <fescar.version>0.4.1</fescar.version>
         <seata.version>0.8.1</seata.version>
         <sentinel.version>0.2.1.RELEASE</sentinel.version>
-        <fastjson.version>1.2.56</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <druid.version>1.1.2</druid.version>
         <nacos.version>0.2.1.RELEASE</nacos.version>
 
