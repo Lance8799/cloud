@@ -18,7 +18,7 @@
     </modules>
 
     <properties>
-        <xxl-job.version>2.0.2</xxl-job.version>
+        <xxl-job.version>2.3.1</xxl-job.version>
         <spring-boot.version>2.1.2.RELEASE</spring-boot.version>
 
         <quartz.version>2.3.1</quartz.version>
